@@ -56,7 +56,7 @@ jobs:
     environment: 'production'
     defaults:
       run:
-        working-directory: RestfulApp  # ← set if your code is in a subdirectory
+        working-directory: workflows/RestfulApp  # ← set if your code is in a subdirectory
 
     permissions:
       contents: 'read'
