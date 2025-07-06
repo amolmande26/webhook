@@ -108,7 +108,7 @@ jobs:
           context: RestfulApp
           file: RestfulApp/Docker
           registry: '${{ env.MY_DOCKER_REGISTRY }}'
-          tags: ${{ REPOSITORY }}/restfulapp:${{ github.sha }}
+          tags: '${{ env.REPOSITORY }}'/restfulapp:${{ github.sha }}
           push: true  # change to true for pushing
 
       # Set up kustomize
