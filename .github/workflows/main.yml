@@ -107,7 +107,7 @@ jobs:
         with:
           context: RestfulApp
           file: RestfulApp/Docker
-          tags: mydockerhub26/restfulapp:${{ github.sha }}
+          tags: docker.io/mydockerhub26/restfulapp:${{ github.sha }}
           push: true  # change to true for pushing
 
       # Set up kustomize
