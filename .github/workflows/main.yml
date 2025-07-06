@@ -71,7 +71,7 @@ jobs:
           cache: maven
 
       - name: Run mvn clean install
-        working-directory: RestfulApp
+        working-directory: .github/workflows/RestfulApp
         run: mvn clean install -B
 
       # Configure Workload Identity Federation and generate an access token.
