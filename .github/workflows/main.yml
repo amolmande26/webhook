@@ -54,6 +54,9 @@ jobs:
     name: 'Setup, Build, Publish, and Deploy'
     runs-on: 'ubuntu-latest'
     environment: 'production'
+    defaults:
+      run:
+        working-directory: RestfulApp  # ← set if your code is in a subdirectory
 
     permissions:
       contents: 'read'
@@ -62,6 +65,16 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: 'actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332' # actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Run mvn clean install
+        run: mvn clean install -B
 
       # Configure Workload Identity Federation and generate an access token.
       #
