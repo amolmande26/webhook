@@ -54,9 +54,6 @@ jobs:
     name: 'Setup, Build, Publish, and Deploy'
     runs-on: 'ubuntu-latest'
     environment: 'production'
-    defaults:
-      run:
-        working-directory: workflows/RestfulApp  # ← set if your code is in a subdirectory
 
     permissions:
       contents: 'read'
@@ -74,6 +71,7 @@ jobs:
           cache: maven
 
       - name: Run mvn clean install
+        working-directory: RestfulApp
         run: mvn clean install -B
 
       # Configure Workload Identity Federation and generate an access token.
