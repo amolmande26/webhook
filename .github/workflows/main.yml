@@ -73,6 +73,15 @@ jobs:
         working-directory: RestfulApp
         run: mvn clean install -B
 
+      - name: Inspect ID token
+        env:
+          ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${{ steps.auth.outputs.token }}
+          ACTIONS_ID_TOKEN_REQUEST_URL: ${{ steps.auth.outputs.url }}
+        run: |
+          curl -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "$ACTIONS_ID_TOKEN_REQUEST_URL" | jq .
+
+
       - uses: actions/checkout@v4
 
       - name: Authenticate to GCP via Workload Identity Federation
