@@ -121,7 +121,6 @@ jobs:
 #          push: true  # change to true for pushing
 
       - name: Build Docker image
-        context: RestfulApp
         run: docker build -t ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ env.REPOSITORY }}/restfulapp:latest -f RestfulApp/Docker
 
       - name: Push Docker image
