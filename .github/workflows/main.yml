@@ -114,6 +114,7 @@ jobs:
       # Build the Docker image
       - name: 'Build and push Docker container'
         uses: docker/build-push-action@v3
+        working-directory: RestfulApp
         with:
           context: RestfulApp
           file: RestfulApp/Docker
