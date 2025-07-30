@@ -66,25 +66,6 @@ jobs:
         working-directory: RestfulApp
         run: mvn clean install -B
 
-#      - name: Inspect ID token
-#        env:
-#          ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${{ steps.auth.outputs.token }}
-#          ACTIONS_ID_TOKEN_REQUEST_URL: ${{ steps.auth.outputs.url }}
-#        run: |
-#          curl -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
-#            "$ACTIONS_ID_TOKEN_REQUEST_URL" | jq .
-#
-#      - name: Checkout Debugger
-#        uses: actions/checkout@v4
-#        with:
-#          repository: github/actions-oidc-debugger
-#          path: ./.github/actions/actions-oidc-debugger
-#
-#      - name: Debug OIDC Claims
-#        uses: ./.github/actions/actions-oidc-debugger
-#        with:
-#          audience: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
-
       - uses: actions/checkout@v4
 
       - name: Authenticate to GCP via Workload Identity Federation
@@ -94,17 +75,6 @@ jobs:
           token_format: 'access_token'
           workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GSA }}
-
-
-#      - name: Setup gcloud CLI
-#        uses: google-github-actions/setup-gcloud@v2
-#        with:
-#          service_account_key: ${{ secrets.GCP_SA_KEY }}
-#          project_id: ${{ secrets.PROJECT_ID }}
-#          export_default_credentials: true
-
-#      - name: Set up Cloud SDK
-#        uses: google-github-actions/setup-gcloud@v2
 
 
       - name: Set up Docker Buildx
@@ -123,12 +93,15 @@ jobs:
           tags: ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ env.REPOSITORY }}/restfulapp:latest
           push: true  # change to true for pushing
 
-#      - name: Build Docker image
-#        run: docker build -t ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ env.REPOSITORY }}/restfulapp:latest -f RestfulApp/Docker RestfulApp
-#
-#      - name: Push Docker image
-#        run: |
-#           docker push ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ env.REPOSITORY }}/restfulapp:latest
+      # Helm linting of your chart
+      - name: Lint Helm chart
+        working-directory: app-helm
+        run: helm lint . --strict
+
+      - name: Package Helm chart
+        working-directory: app-helm
+        run: helm package . --version "${{ github.sha }}"
+
 
       # Set up kustomize
 #      - name: 'Set up Kustomize'
