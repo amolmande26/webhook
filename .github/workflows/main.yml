@@ -100,7 +100,7 @@ jobs:
 
       - name: Package Helm chart
         working-directory: app-helm
-        run: helm package . --version "${{ github.sha }}"
+        run: helm package .
 
 
       # Set up kustomize
