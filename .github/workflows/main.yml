@@ -104,7 +104,7 @@ jobs:
 
       - name: Push Helm chart to GAR
         run: |
-          helm push app-helm.tgz \
+          helm push app-helm/app-helm.tgz \
             oci://${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ env.REPOSITORY }}
 
 
