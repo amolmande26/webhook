@@ -102,6 +102,11 @@ jobs:
         working-directory: app-helm
         run: helm package .
 
+      - name: Push Helm chart to GAR
+        run: |
+          helm push app-helm.tgz \
+            oci://${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ env.REPOSITORY }}
+
 
       # Set up kustomize
 #      - name: 'Set up Kustomize'
