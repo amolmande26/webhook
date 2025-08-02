@@ -124,4 +124,4 @@ jobs:
         run: |
             helm upgrade --install restful-app restfulapp-helm-v01.tgz \
               --namespace dev --create-namespace \
-              --set image= ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ env.REPOSITORY }}/restfulapp:latest
+              --set image=${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ env.REPOSITORY }}/restfulapp:latest
