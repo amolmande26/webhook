@@ -95,7 +95,7 @@ jobs:
 
       # Helm linting of your chart
       - name: Lint Helm chart
-        working-directory: app-helm
+        working-directory: Helm
         run: helm lint . --strict
 
       - name: Package Helm chart
