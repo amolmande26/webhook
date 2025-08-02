@@ -14,8 +14,8 @@ spec:
     spec:
       serviceAccountName: k8s-myapp-sa
       containers:
-      - name: my-app
-        image: us-east4-docker.pkg.dev/projectid/my-repository/restfulapp:latest
+      - name: restfull-app
+        image: {{ .Values.image }}
         imagePullPolicy: Always
         env:
           - name: JAVA_OPTS
