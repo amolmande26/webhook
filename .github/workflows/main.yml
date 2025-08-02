@@ -83,6 +83,7 @@ jobs:
         run: |
           gcloud auth configure-docker ${{ secrets.REGION }}-docker.pkg.dev --quiet
 
+
       # Build the Docker image
       - name: 'Build and push Docker container'
         uses: docker/build-push-action@v3
