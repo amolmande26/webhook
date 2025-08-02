@@ -92,7 +92,6 @@ jobs:
           tags: ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ env.REPOSITORY }}/restfulapp:latest
           push: true  # change to true for pushing
 
-
       # Helm linting of your chart
       - name: Lint Helm chart
         working-directory: Helm
