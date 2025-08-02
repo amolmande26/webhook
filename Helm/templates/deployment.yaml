@@ -12,7 +12,7 @@ spec:
       labels:
         app: my-app
     spec:
-      serviceAccountName: k8s-myapp-sa
+      #serviceAccountName: k8s-myapp-sa
       containers:
       - name: restfull-app
         image: {{ .Values.image }}
