@@ -99,12 +99,12 @@ jobs:
         run: helm lint . --strict
 
       - name: Package Helm chart
-        working-directory: app-helm
+        working-directory: Helm
         run: helm package .
 
       - name: Push Helm chart to GAR
         run: |
-          helm push app-helm/app-helm-v01.tgz \
+          helm push Helm/app-helm-v01.tgz \
             oci://${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ env.REPOSITORY }}
 
 
