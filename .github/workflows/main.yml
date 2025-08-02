@@ -68,30 +68,30 @@ jobs:
 
       - uses: actions/checkout@v4
 
-      - name: Authenticate to GCP via Workload Identity Federation
-        uses: google-github-actions/auth@v2
-        with:
-          #project_id: ${{ secrets.PROJECT_ID }}
-          token_format: 'access_token'
-          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ secrets.GSA }}
-
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Configure Docker auth for Artifact Registry
-        run: |
-          gcloud auth configure-docker ${{ secrets.REGION }}-docker.pkg.dev --quiet
-
-      # Build the Docker image
-      - name: 'Build and push Docker container'
-        uses: docker/build-push-action@v3
-        with:
-          context: RestfulApp
-          file: RestfulApp/Docker
-          tags: ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ env.REPOSITORY }}/restfulapp:latest
-          push: true  # change to true for pushing
+#      - name: Authenticate to GCP via Workload Identity Federation
+#        uses: google-github-actions/auth@v2
+#        with:
+#          #project_id: ${{ secrets.PROJECT_ID }}
+#          token_format: 'access_token'
+#          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+#          service_account: ${{ secrets.GSA }}
+#
+#
+#      - name: Set up Docker Buildx
+#        uses: docker/setup-buildx-action@v3
+#
+#      - name: Configure Docker auth for Artifact Registry
+#        run: |
+#          gcloud auth configure-docker ${{ secrets.REGION }}-docker.pkg.dev --quiet
+#
+#      # Build the Docker image
+#      - name: 'Build and push Docker container'
+#        uses: docker/build-push-action@v3
+#        with:
+#          context: RestfulApp
+#          file: RestfulApp/Docker
+#          tags: ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ env.REPOSITORY }}/restfulapp:latest
+#          push: true  # change to true for pushing
 
       # Helm linting of your chart
       - name: Lint Helm chart
@@ -104,7 +104,7 @@ jobs:
 
       - name: Push Helm chart to GAR
         run: |
-          helm push app-helm/app-helm.tgz \
+          helm push app-helm/app-helm-v01.tgz \
             oci://${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ env.REPOSITORY }}
 
 
