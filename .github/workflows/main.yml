@@ -38,7 +38,7 @@ on:
     branches:
       - main
 env:
-  REPOSITORY: 'githut-action' # TODO: update to your Artifact Registry docker repository name
+  REPOSITORY: 'github-action' # TODO: update to your Artifact Registry docker repository name
   IMAGE: 'restfulapp'
 
 jobs:
